@@ -15,7 +15,8 @@ export const FOG = '#e7b38d' // golden-hour haze, close to the sky at the horizo
 export const windowGlow = new MeshStandardMaterial({ color: '#1c3a3a', emissive: '#ffb070', emissiveIntensity: 0.25, roughness: 0.08, metalness: 0.4 })
 
 // True on phones and tablets: skip the most expensive effects there
-export const LOW_END = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches
+// (set on <html> by the script in index.html, which checks touch points and screen size too)
+export const LOW_END = typeof document !== 'undefined' && document.documentElement.hasAttribute('data-touch')
 
 // Golden-hour gradient: soft blue overhead, warm peach band, glowing horizon and sun.
 // Shared with the water, which reflects it where there's no mirrored scene to show.

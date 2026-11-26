@@ -9,6 +9,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,600;6..12,800;6..12,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
     <meta name="theme-color" content="#0A2318" />
+    <!-- Phone or tablet? Decided once, before anything draws, from several signals: some Android
+         browsers report a mouse-like pointer, so the pointer type alone isn't enough. -->
+    <script>
+      (function () {
+        try {
+          var mq = function (q) { return !!(window.matchMedia && window.matchMedia(q).matches) }
+          var touchPoints = navigator.maxTouchPoints || ('ontouchstart' in window ? 1 : 0)
+          var shortSide = Math.min(screen.width, screen.height)
+          var touch = mq('(pointer: coarse)') || (touchPoints > 0 && (mq('(hover: none)') || shortSide < 700))
+          if (touch) document.documentElement.setAttribute('data-touch', '')
+        } catch (e) {}
+      })()
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- Without JavaScript the ride can't load: drop the loading bar and leave the page below -->

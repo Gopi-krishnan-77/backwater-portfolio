@@ -237,84 +237,86 @@ p.zone-story { margin: 0 0 1rem; font-size: 1.05rem; line-height: 1.5; color: va
 
 /* ---------- Touch ---------- */
 .touch { display: none; }
-@media (hover: none) and (pointer: coarse) {
-  .touch { display: block; position: fixed; right: 1rem; bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem); }
-  .dpad {
-    position: relative; width: 9rem; height: 9rem; border-radius: 50%; background: var(--panel); border: 1px solid var(--line);
+/* Phones and tablets: <html data-touch> is set by a small script in index.html, which
+   checks touch points and screen size as well as the pointer type (some Android browsers
+   report a mouse-like pointer, which hid the touch controls). */
+  :root[data-touch] .touch { display: block; position: fixed; right: 1rem; bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem); }
+  :root { --pad: min(9rem, 36vw); }
+  :root[data-touch] .dpad {
+    position: relative; width: var(--pad); height: var(--pad); border-radius: 50%; background: var(--panel); border: 1px solid var(--line);
     touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
   }
-  .dpad-arrow { position: absolute; transform: translate(-50%, -50%); font-size: 0.95rem; line-height: 1; color: var(--soft); pointer-events: none; }
-  .dpad-arrow.on { color: var(--text); }
-  .dpad-up { left: 50%; top: 15%; } .dpad-down { left: 50%; top: 85%; }
-  .dpad-left { left: 15%; top: 50%; } .dpad-right { left: 85%; top: 50%; }
-  .dpad-knob { position: absolute; left: 50%; top: 50%; width: 3.1rem; height: 3.1rem; border-radius: 50%; background: var(--orange); pointer-events: none; }
+  :root[data-touch] .dpad-arrow { position: absolute; transform: translate(-50%, -50%); font-size: 0.95rem; line-height: 1; color: var(--soft); pointer-events: none; }
+  :root[data-touch] .dpad-arrow.on { color: var(--text); }
+  :root[data-touch] .dpad-up { left: 50%; top: 15%; } :root[data-touch] .dpad-down { left: 50%; top: 85%; }
+  :root[data-touch] .dpad-left { left: 15%; top: 50%; } :root[data-touch] .dpad-right { left: 85%; top: 50%; }
+  :root[data-touch] .dpad-knob { position: absolute; left: 50%; top: 50%; width: 3.1rem; height: 3.1rem; border-radius: 50%; background: var(--orange); pointer-events: none; }
 
-  .hud-top { padding-left: 0.75rem; padding-right: 0.75rem; }
-  .who h1 { font-size: 1.15rem; }
-  .who p { font-size: 0.58rem; white-space: nowrap; }
-  .hud-actions button { padding: 0.4rem 0.7rem; font-size: 0.72rem; }
-  .gps { top: auto; left: 0.75rem; transform: none; bottom: calc(env(safe-area-inset-bottom, 0px) + 1.4rem); max-width: calc(100vw - 11.5rem); font-size: 0.8rem; }
-  .gps .label { display: none; }
-  .gps { gap: 0.5rem; padding: 0.4rem 0.4rem 0.4rem 0.8rem; }
-  .autopilot { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
-  .nav { left: 0.75rem; top: calc(env(safe-area-inset-top, 0px) + 4.4rem); bottom: auto; width: auto; max-height: calc(100dvh - 16rem); padding: 0.45rem; }
-  .nav .minimap { width: 112px !important; height: 112px !important; }
-  .nav--open { width: min(15rem, calc(100vw - 1.5rem)); }
-  .nav-keys { display: none; }
+  :root[data-touch] .hud-top { padding-left: 0.75rem; padding-right: 0.75rem; }
+  :root[data-touch] .who h1 { font-size: 1.15rem; }
+  :root[data-touch] .who p { font-size: 0.58rem; white-space: nowrap; }
+  :root[data-touch] .hud-actions button { padding: 0.4rem 0.7rem; font-size: 0.72rem; white-space: nowrap; }
+  :root[data-touch] .gps { top: auto; left: 0.75rem; transform: none; bottom: calc(env(safe-area-inset-bottom, 0px) + 1.4rem); max-width: calc(100vw - var(--pad) - 2.5rem); font-size: 0.8rem; }
+  :root[data-touch] .gps .label { display: none; }
+  :root[data-touch] .gps { gap: 0.5rem; padding: 0.4rem 0.4rem 0.4rem 0.8rem; }
+  :root[data-touch] .autopilot { padding: 0.3rem 0.7rem; font-size: 0.7rem; }
+  :root[data-touch] .nav { left: 0.75rem; top: calc(env(safe-area-inset-top, 0px) + 4.4rem); bottom: auto; width: auto; max-height: calc(100dvh - 16rem); padding: 0.45rem; }
+  :root[data-touch] .nav .minimap { width: 112px !important; height: 112px !important; }
+  :root[data-touch] .nav--open { width: min(15rem, calc(100vw - 1.5rem)); }
+  :root[data-touch] .nav-keys { display: none; }
   /* Docked: a small card beside the drive pad with the chapter, title and story line.
      "Read more" opens the full sheet; the water ahead stays visible until you ask for it. */
-  .panel {
-    top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem); left: 0.75rem; right: 10.6rem; width: auto;
-    max-height: 11rem; overflow: hidden; padding: 0.85rem 0.9rem 3rem;
+  :root[data-touch] .panel {
+    top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem); left: 0.75rem; right: calc(var(--pad) + 1.6rem); width: auto;
+    max-height: calc(100dvh - 9rem); overflow: hidden; padding: 0.85rem 0.9rem 0.8rem;
     transform: translateY(calc(100% + 2rem));
   }
-  .panel--open { transform: translateY(0); }
-  .panel:not(.panel--expanded) .zone > :not(.zone-eyebrow):not(.zone-title):not(.zone-story),
-  .panel:not(.panel--expanded) .up-next { display: none; }
-  .panel:not(.panel--expanded) .zone-title { font-size: 1.15rem; margin: 0.25rem 0 0.3rem; }
-  .panel:not(.panel--expanded) p.zone-story {
+  :root[data-touch] .panel--open { transform: translateY(0); }
+  :root[data-touch] .panel:not(.panel--expanded) .zone > :not(.zone-eyebrow):not(.zone-title):not(.zone-story), :root[data-touch] .panel:not(.panel--expanded) .up-next { display: none; }
+  :root[data-touch] .panel:not(.panel--expanded) .zone-title { font-size: 1.15rem; margin: 0.25rem 0 0.3rem; }
+  :root[data-touch] .panel:not(.panel--expanded) p.zone-story {
     margin: 0; font-size: 0.82rem; line-height: 1.4;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .panel--expanded {
-    right: 0.75rem; bottom: calc(env(safe-area-inset-bottom, 0px) + 10.8rem);
-    max-height: calc(100dvh - 10.8rem - 5.5rem); overflow-y: auto; padding-bottom: 1.2rem;
+  :root[data-touch] .panel--expanded {
+    right: 0.75rem; bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad) + 1.8rem);
+    max-height: calc(100dvh - var(--pad) - 1.8rem - 5.5rem); overflow-y: auto; padding-bottom: 1.2rem;
   }
-  .panel-actions { display: flex; gap: 0.4rem; position: absolute; left: 0.9rem; right: 0.9rem; bottom: 0.7rem; }
-  .panel-actions button { padding: 0.35rem 0.7rem; font-size: 0.7rem; white-space: nowrap; }
-  .panel--expanded .panel-actions { position: sticky; bottom: 0; margin-top: 1rem; padding-top: 0.4rem; background: var(--bg); box-shadow: 0 -8px 16px var(--bg); }
-  .wide-only { display: none; }
-  .narrow-only { display: inline; }
-  .panel--open ~ .nav { display: none; }
-  .zone-title { font-size: 1.7rem; }
-  .title-card { align-items: flex-end; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
+  :root[data-touch] .panel-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+  :root[data-touch] .panel-actions button { padding: 0.35rem 0.7rem; font-size: 0.7rem; white-space: nowrap; }
+  :root[data-touch] .panel--expanded .panel-actions { position: sticky; bottom: 0; margin-top: 1rem; padding-top: 0.4rem; background: var(--bg); box-shadow: 0 -8px 16px var(--bg); }
+  :root[data-touch] .wide-only { display: none; }
+  :root[data-touch] .narrow-only { display: inline; }
+  :root[data-touch] .panel--open ~ .nav { display: none; }
+  :root[data-touch] .zone-title { font-size: 1.7rem; }
+  :root[data-touch] .title-card { align-items: flex-end; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
     background: linear-gradient(0deg, rgba(10, 35, 24, 0.97) 0%, rgba(10, 35, 24, 0.9) 48%, rgba(10, 35, 24, 0) 78%); }
-  .itinerary li { grid-template-columns: 2rem 6.5rem 1fr; }
-  .finale-card { background: linear-gradient(0deg, rgba(10, 20, 30, 0.95) 0%, rgba(10, 20, 30, 0.85) 45%, rgba(10, 20, 30, 0) 72%); }
-  .chapter-card { top: 30%; }
-}
+  :root[data-touch] .itinerary li { grid-template-columns: 2rem 6.5rem 1fr; }
+  :root[data-touch] .finale-card { background: linear-gradient(0deg, rgba(10, 20, 30, 0.95) 0%, rgba(10, 20, 30, 0.85) 45%, rgba(10, 20, 30, 0) 72%); }
+  :root[data-touch] .chapter-card { top: 30%; }
+
 
 /* Phone held sideways: the screen is short, so the stop card becomes a left column instead of a
    bottom sheet, and the cards over the aerial shots sit on the left. The scene stays visible to the right. */
-@media (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 540px) {
-  .panel, .panel--expanded {
+@media (orientation: landscape) and (max-height: 540px) {
+  :root[data-touch] .panel, :root[data-touch] .panel--expanded {
     top: calc(env(safe-area-inset-top, 0px) + 4rem); bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
     left: calc(env(safe-area-inset-left, 0px) + 0.75rem); right: auto; width: min(21rem, 44vw);
     max-height: none; transform: translateX(calc(-100% - 2rem));
   }
-  .panel:not(.panel--expanded) { bottom: auto; max-height: calc(100dvh - 4.75rem); }
-  .panel--open { transform: translateX(0); }
-  .panel--expanded { overflow-y: auto; }
-  .touch { right: calc(env(safe-area-inset-right, 0px) + 1rem); }
-  .dpad { width: 7.5rem; height: 7.5rem; }
-  .title-card, .finale-card { align-items: center; padding-bottom: 1rem; }
-  .title-card { background: linear-gradient(90deg, rgba(10, 35, 24, 0.96) 0%, rgba(10, 35, 24, 0.88) 45%, rgba(10, 35, 24, 0) 75%); }
-  .finale-card { background: linear-gradient(90deg, rgba(10, 20, 30, 0.94) 0%, rgba(10, 20, 30, 0.8) 45%, rgba(10, 20, 30, 0) 75%); }
-  .title-inner { width: min(24rem, 55vw); }
-  .finale-card h1, .title-card h1 { font-size: 1.8rem; }
-  .title-pitch { font-size: 0.85rem; }
-  .itinerary { display: none; }
-  .gps { max-width: calc(100vw - 10rem); }
+  :root[data-touch] .panel:not(.panel--expanded) { bottom: auto; max-height: calc(100dvh - 4.75rem); }
+  :root[data-touch] .panel--open { transform: translateX(0); }
+  :root[data-touch] .panel--expanded { overflow-y: auto; }
+  :root[data-touch] .touch { right: calc(env(safe-area-inset-right, 0px) + 1rem); }
+  :root[data-touch] { --pad: min(7.5rem, 30vh); }
+  :root[data-touch] .title-card, :root[data-touch] .finale-card { align-items: center; padding-bottom: 1rem; }
+  :root[data-touch] .title-card { background: linear-gradient(90deg, rgba(10, 35, 24, 0.96) 0%, rgba(10, 35, 24, 0.88) 45%, rgba(10, 35, 24, 0) 75%); }
+  :root[data-touch] .finale-card { background: linear-gradient(90deg, rgba(10, 20, 30, 0.94) 0%, rgba(10, 20, 30, 0.8) 45%, rgba(10, 20, 30, 0) 75%); }
+  :root[data-touch] .title-inner { width: min(24rem, 55vw); }
+  :root[data-touch] .finale-card h1, :root[data-touch] .title-card h1 { font-size: 1.8rem; }
+  :root[data-touch] .title-pitch { font-size: 0.85rem; }
+  :root[data-touch] .itinerary { display: none; }
+  :root[data-touch] .gps { max-width: calc(100vw - var(--pad) - 2.5rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
